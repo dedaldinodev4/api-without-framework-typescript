@@ -1,0 +1,1 @@
+export { IMovieRequest } from './movie'

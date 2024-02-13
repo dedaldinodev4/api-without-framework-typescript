@@ -1,5 +1,5 @@
 
-type Movie = {
+type IMovie = {
     id: string;
     title: string;
     description: string;
@@ -7,4 +7,4 @@ type Movie = {
     created_at: Date;
 }
 
-export type IMovieRequest = Partial<Movie>
+export type IMovieRequest = Omit<IMovie, 'id | created_at'>

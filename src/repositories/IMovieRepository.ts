@@ -1,5 +1,5 @@
-import { Movie } from "@/entities";
-import { IMovieRequest } from "@/dtos";
+import { Movie } from "../entities";
+import { IMovieRequest } from "../dtos";
 
 export interface IMovieRepository {
   create(data: IMovieRequest):Promise<Movie>;

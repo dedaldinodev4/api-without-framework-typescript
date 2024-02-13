@@ -1,22 +1,15 @@
-import { DEFAULT_HEADER } from "../utils";
-import { createMovieFactory, 
-  findAllMoviesFactory, 
-  deleteMovieFactory,
-  updateMovieFactory,
-  findByIdMovieFactory 
-} from "../usecases/Movies";
+import { movieFactory } from '../factories/MovieFactory';
 
-
-export const routes = {
-  'movies:post': (request, response) => { return createMovieFactory().handle(request, response) },
-  'movies:get': (request, response) => { 
-    if (request.queryString?.id) { return findByIdMovieFactory().handle(request, response) }
-    return findAllMoviesFactory().handle(request, response) 
+const routes = {
+  '/movies': {
+    'GET': (request, response) => movieFactory().findMovie(request, response),
+    'POST': (request, response) => movieFactory().createMovie(request, response),
   },
-  'movies:put': (request, response) => { return updateMovieFactory().handle(request, response) },
-  'movies:delete': (request, response) => { return deleteMovieFactory().handle(request, response) },
-  default: (request, response) => {
-    response.write('Hello My API Build of node.js without framework.')
-    response.end()
-}
-}
+  '/movies/': {
+    'GET': (request, response) => movieFactory().findMovie(request, response),
+    'PUT': (request, response) => movieFactory().updateMovie(request, response),
+    'DELETE': (request, response) => movieFactory().deleteMovie(request, response),
+  },
+};
+
+export default routes;

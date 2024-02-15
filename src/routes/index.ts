@@ -1,15 +1,14 @@
-import { movieFactory } from '../factories/MovieFactory';
+import { movieFactory } from '../factories';
 
 const routes = {
-  '/movies': {
-    'GET': (request, response) => movieFactory().findMovie(request, response),
-    'POST': (request, response) => movieFactory().createMovie(request, response),
-  },
-  '/movies/': {
-    'GET': (request, response) => movieFactory().findMovie(request, response),
-    'PUT': (request, response) => movieFactory().updateMovie(request, response),
-    'DELETE': (request, response) => movieFactory().deleteMovie(request, response),
-  },
+  'movies:get': (request, response) => movieFactory().findAllMovies(request, response),
+  'movies:post':(request, response) => movieFactory().createMovie(request, response),
+  'movies:put': (request, response) => movieFactory().updateMovie(request, response),
+  'movies:delete':  (request, response) => movieFactory().deleteMovie(request, response),
+  default: (request, response) => {
+    response.write('Hello My API Build of node.js without framework.')
+    response.end()
+  }
 };
 
 export default routes;

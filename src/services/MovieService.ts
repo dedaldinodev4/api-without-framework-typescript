@@ -15,20 +15,21 @@ export class MovieService {
         return this.movieRepository.create(data);
     }
 
-    async find(id?: string): Promise<Movie | Movie[] | Error> {
-        if (id) {
-            const movie = await this.movieRepository.find(id)
-            if (!movie) {
-                throw new Error('Movie does not exists.');
-            }
-            return movie
+    async findById(id: string): Promise<Movie | Error> {
+        const movie = await this.movieRepository.findById(id);
+        if (!movie) {
+            throw new Error('Movie does not exists.');
         }
-        const movies = await this.movieRepository.find();
+        return movie;
+    }
+
+    async findAll(): Promise<Movie[]> {
+        const movies = await this.movieRepository.findAll();
         return movies;
     }
 
     async update(id: string, data: IMovieRequest): Promise<Movie | Error> {
-        const movieExists = await this.movieRepository.find(id)
+        const movieExists = await this.movieRepository.findById(id)
         if (!movieExists) {
             throw new Error('Movie does not exists.');
         }
@@ -36,7 +37,7 @@ export class MovieService {
     }
 
     async delete(id: string): Promise<void> {
-        const movieExists = await this.movieRepository.find(id)
+        const movieExists = await this.movieRepository.findById(id)
         if (!movieExists) {
             throw new Error('Movie does not exists.');
         }

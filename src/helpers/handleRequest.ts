@@ -1,14 +1,20 @@
 import routes from "../routes";
 
 
-export const handleRequest = (req, res) => {
-    const { url, method } = req;
-    const routeHandler = routes[url || '']?.[method || ''];
+export const handleRequest = (request, response) => {
+    const { url, method } = request;
+    const [first, route, id ] = url.split('/')
+    request.queryString = { id: id };
+
+    const key = `${route}:${method.toLowerCase()}`
+    
+    const routeHandler = routes[key] || routes.default
+    console.log(first, route, id, key, routeHandler)
 
     if (routeHandler) {
-        routeHandler(req, res);
+        return routeHandler(request, response);
     } else {
-        res.writeHead(404, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ message: 'Route not found' }));
+        response.writeHead(404, { 'Content-Type': 'application/json' });
+        response.end(JSON.stringify({ message: 'Route not found' }));
     }
 }

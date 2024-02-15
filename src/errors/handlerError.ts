@@ -1,6 +1,5 @@
-import { DEFAULT_HEADER } from "../utils"
 
-export const handlerError = response => {
+export const handlerError = (response: any) => {
   
   return error => {
     response.write(JSON.stringify({ 

@@ -1,5 +1,5 @@
 import { ServerResponse, IncomingMessage } from 'http';
-import { MovieService } from "../services/MovieService";
+import { MovieService } from "../services";
 
 
 export class MovieController {
@@ -7,22 +7,34 @@ export class MovieController {
     constructor(private movieService: MovieService) { }
 
     //* Find Movies *//
-    async findMovie(req: IncomingMessage, res: ServerResponse) {
+    async findAllMovies(req: IncomingMessage, res: ServerResponse) {
         try {
-            // const id = req.url?.split('/')[2];
-            // if (!id) {
-            //     const movies = await this.movieService.find();
-            //     res.setHeader('Content-Type', 'application/json');
-            //     res.end(JSON.stringify(movies));
-            // }
 
-            const movies = await this.movieService.find();
+            const id = req.url?.split('/')[2];
+            if (id) {
+                const movie = await this.movieService.findById(id);
                 res.setHeader('Content-Type', 'application/json');
-                res.end(JSON.stringify(movies));
-            
-            // const movie = await this.movieService.find(id);
-            // res.setHeader('Content-Type', 'application/json');
-            // res.end(JSON.stringify(movie));
+                res.end(JSON.stringify(movie));
+            }
+            const movies = await this.movieService.findAll();
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(movies));
+
+        } catch (error) {
+            res.writeHead(500, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ message: error.message }));
+        }
+    }
+
+    //* FindById Movie *//
+    async findByIdMovie(req: IncomingMessage, res: ServerResponse) {
+        console.log("cheguei")
+        try {
+            const id = req.url?.split('/')[2];
+            const movie = await this.movieService.findById(id);
+            res.setHeader('Content-Type', 'application/json');
+            res.end(JSON.stringify(movie));
+
         } catch (error) {
             res.writeHead(500, { 'Content-Type': 'application/json' });
             res.end(JSON.stringify({ message: error.message }));

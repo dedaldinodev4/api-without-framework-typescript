@@ -1,6 +1,6 @@
 import { MovieRepository } from '../repositories/implementations/MovieRepository'
-import { MovieService } from '../services/MovieService'
-import { MovieController } from '../controllers/MovieController';
+import { MovieService } from '../services'
+import { MovieController } from '../controllers';
 
 
 export const movieFactory = () => {

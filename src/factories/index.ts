@@ -1,0 +1,1 @@
+export { movieFactory } from './MovieFactory'

@@ -2,7 +2,6 @@ import { Movie } from "@/entities";
 import { existsSync } from "fs";
 import { readFile, writeFile } from "fs/promises";
 
-
 export class Database {
   private filename: string;
 

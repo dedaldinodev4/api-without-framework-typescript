@@ -1,7 +1,7 @@
 import { movieFactory } from '../factories';
 
 const routes = {
-  'movies:get': (request, response) => movieFactory().findAllMovies(request, response),
+  'movies:get': (request, response) => movieFactory().find(request, response),
   'movies:post':(request, response) => movieFactory().createMovie(request, response),
   'movies:put': (request, response) => movieFactory().updateMovie(request, response),
   'movies:delete':  (request, response) => movieFactory().deleteMovie(request, response),

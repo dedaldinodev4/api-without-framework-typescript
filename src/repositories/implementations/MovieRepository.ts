@@ -1,4 +1,3 @@
-
 import { IMovieRepository } from '../IMovieRepository';
 import { Movie } from '../../entities';
 import { IMovieRequest } from '../../dtos';
@@ -44,11 +43,21 @@ export class MovieRepository implements IMovieRepository {
        const movies = await this._repository._currentFileContent();
 
         if (movies.find((obj) => obj.id === id)) {
-            const newArray = movies.filter((item) => item.id !== id)
-            const newMovie = { id, ...data }
-            newArray.push(newMovie)
-            await this._repository.write(newArray);
-            return newMovie;
+
+            movies.filter(function(item) {
+                return item.id !== id
+            }).map((item) => {
+                item.title = data.title;
+                item.category = data.category;
+                item.description = data.description;
+            })
+
+            const movie = {
+                id,
+                ...data
+            }
+            await this._repository.write(movies);
+            return movie;
         }
 
     }

@@ -1,5 +1,5 @@
 
-export const handlerError = (response: any) => {
+export const handleError = (response: any) => {
   
   return error => {
     response.write(JSON.stringify({ 
